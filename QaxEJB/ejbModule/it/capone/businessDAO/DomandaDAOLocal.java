@@ -1,5 +1,7 @@
 package it.capone.businessDAO;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import it.capone.bean.CategoriaBean;
@@ -10,7 +12,9 @@ import it.capone.bean.LoginBean;
 import it.capone.entity.Domanda;
 
 @Local
-public interface DomandaDAOLocal extends GenericDAORemote<Domanda, Integer>, GenericDAOLocal<Domanda, Integer>{
+public interface DomandaDAOLocal {
+	
+	List<Domanda> getDomande();
 	
 	ListaDomandeBean getDomande(ListaDomandeBean listaDomande);
 	

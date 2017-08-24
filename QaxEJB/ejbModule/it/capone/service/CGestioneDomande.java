@@ -1,5 +1,6 @@
 package it.capone.service;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -15,22 +16,28 @@ import it.capone.bean.DomandaBean;
 import it.capone.bean.ListaDomandeBean;
 import it.capone.bean.ListaRisposteBean;
 import it.capone.bean.LoginBean;
+import it.capone.businessDAO.DomandaDAOImpl;
 import it.capone.businessDAO.DomandaDAORemote;
 //import it.capone.dao.DomandaDAO;
+import it.capone.entity.Domanda;
 
 public class CGestioneDomande {
 	
 	//static DomandaDAO domandaDAO = new DomandaDAO();
 	//private DomandaDAORemote domandaDAO;
+	
 	//@EJB
-	private DomandaServiceRemote domandaService;
+	private DomandaDAORemote domandaService;
 	
 	
 	public CGestioneDomande() throws RuntimeException {
 		try {
+			if(new InitialContext().lookup("java:global/QaxEJB/DomandaDAOImpl!it.capone.businessDAO.DomandaDAORemote") instanceof DomandaDAORemote)
+				domandaService = (DomandaDAORemote) new InitialContext().lookup("java:global/QaxEJB/DomandaDAOImpl!it.capone.businessDAO.DomandaDAORemote");
 			
-			domandaService = (DomandaServiceRemote) new InitialContext().lookup("it.capone.service.DomandaServiceRemote");
-			//domandaDAO = (DomandaDAORemote)new InitialContext().lookup("java:global/Qax-EJB/ejbModule/DomandaDAOImpl");
+			else {
+				System.out.println("Instanceof non ha funzionato");
+			}
 			
 		}
 		catch(NamingException ex) {
@@ -40,7 +47,10 @@ public class CGestioneDomande {
 	 
 	
 	
-	
+	public List<Domanda> getDomande() {
+		List<Domanda> domande = domandaService.getDomande();
+		return domande;
+	}
 	
 	public ListaDomandeBean getDomande(ListaDomandeBean listaDomande){
 		//DomandaDAO domandaDAO = new DomandaDAO();

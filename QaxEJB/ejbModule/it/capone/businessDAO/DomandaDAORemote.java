@@ -1,5 +1,7 @@
 package it.capone.businessDAO;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 import it.capone.bean.CategoriaBean;
@@ -7,10 +9,13 @@ import it.capone.bean.DomandaBean;
 import it.capone.bean.ListaDomandeBean;
 import it.capone.bean.ListaRisposteBean;
 import it.capone.bean.LoginBean;
+import it.capone.entity.Domanda;
 
 
 @Remote
 public interface DomandaDAORemote {
+	
+	List<Domanda> getDomande();
 	
 	ListaDomandeBean getDomande(ListaDomandeBean listaDomande);
 	
